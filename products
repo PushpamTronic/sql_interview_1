@@ -1,0 +1,6 @@
+product_id,product_name,brand,type,price,stock
+1,"Gaming Laptop",Razer,Laptop,1500,10
+2,"Wireless Headphones",sony,Headphones,200,25
+3,"Smart watch",Fitbit,Wearables,350,5
+4,"Professional Monitor",LG,Monitors,500,15
+5,Smartphone,Samsung,Smartphones,800,8
