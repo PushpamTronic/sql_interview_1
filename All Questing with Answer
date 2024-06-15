@@ -1,0 +1,66 @@
+1. List customer_id, order_date of customers who purchased laptop
+
+SELECT 
+    customer_id, order_date
+FROM
+    orders
+        LEFT JOIN
+    order_items ON orders.order_id = order_items.order_id
+        JOIN
+    Products ON order_items.product_id = Products.product_id
+WHERE
+    product_name = 'Gaming Laptop';
+
+---------------------------------------------------------------------------------------
+2. list product_name with the highest order value (total_amount)
+
+SELECT 
+    Product_name, total_amount AS highest_order_value
+FROM
+    products
+        LEFT JOIN
+    order_items ON products.product_id = order_items.product_id
+        LEFT JOIN
+    orders ON order_items.order_id = orders.order_id
+WHERE
+    total_amount in (Select max(total_amount) from Orders);
+
+---------------------------------------------------------------------------------------
+3. Total orders (total count) by type (product type in the products table) in this month
+
+SELECT 
+    product_name, COUNT(order_id)
+FROM
+    (SELECT 
+        product_name,
+            MONTH(order_date) AS current_month,
+            orders.order_id
+    FROM
+        orders
+    LEFT JOIN order_items ON orders.order_id = order_items.order_id
+    RIGHT JOIN products ON order_items.order_id = products.product_id
+    WHERE
+        MONTH(order_date) = '6') AS new_table
+GROUP BY product_name;
+
+---------------------------------------------------------------------------------------
+4. most expensive and least expensive product
+
+SELECT 
+    product_name, price
+FROM
+    products
+WHERE
+    price IN (SELECT 
+            MAX(price)
+        FROM
+            products)
+        OR price IN (SELECT 
+            MIN(price)
+        FROM
+            products);
+
+---------------------------------------------------------------------------------------
+
+
+
